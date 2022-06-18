@@ -9,13 +9,13 @@ import SwiftUI
 
 struct ContentView: View {
     let cols = [GridItem(.adaptive(minimum: 65))]
-    let emojis = ["🛫", "🚘", "🚒", "🚑", "🚕", "🚜", "🚌", "🚁", "🚲", "🏍", "🏎"]
+    let viewModel: EmojiMemoryGame = .init()
     
     var body: some View {
         VStack {
             LazyVGrid(columns: cols) {
-                ForEach(emojis, id: \.self) { emoji in
-                    CardView(content: emoji)
+                ForEach(viewModel.cards, id: \.id) { card in
+                    CardView(content: card.content)
                         .aspectRatio(2/3, contentMode: .fit)
                 }
             }
