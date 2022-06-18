@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let cols = [GridItem(.adaptive(minimum: 80))]
+    let cols = [GridItem(.adaptive(minimum: 65))]
     let emojis = ["🛫", "🚘", "🚒", "🚑", "🚕", "🚜", "🚌", "🚁", "🚲", "🏍", "🏎"]
     
     var body: some View {
