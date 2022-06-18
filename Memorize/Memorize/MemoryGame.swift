@@ -19,18 +19,15 @@ struct MemoryGame<T> {
         }
     }
     
-    func choose(_ card: Card) {
-         
+    mutating func choose(_ card: Card) {
+        let index = cards.firstIndex(where: { $0.id == card.id }) ?? 0
+        cards[index].isFaceUp.toggle()
     }
         
-    struct Card: Equatable {
+    struct Card: Identifiable {
         let id: Int
-        let isFaceUp: Bool = false
+        var isFaceUp: Bool = false
         let isMatched: Bool = false
         let content: T
-        
-        static func == (lhs: MemoryGame<T>.Card, rhs: MemoryGame<T>.Card) -> Bool {
-            lhs.id == rhs.id
-        }
     }
 }
