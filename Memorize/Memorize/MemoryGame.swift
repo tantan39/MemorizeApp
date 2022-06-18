@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct MemoryGame<T> {
+struct MemoryGame<T> where T: Equatable {
     private(set) var cards: [Card]
+    private var indexOfTheOneAndOnlyFaceUpCard: Int?
     
     init(numberOfPairsOfCards: Int, createCardContentBy: ((Int) -> T)) {
         cards = []
@@ -20,7 +21,23 @@ struct MemoryGame<T> {
     }
     
     mutating func choose(_ card: Card) {
-        if let index = cards.firstIndex(where: { $0.id == card.id }) {
+        if let index = cards.firstIndex(where: { $0.id == card.id }),
+            !cards[index].isFaceUp,
+            !cards[index].isMatched {
+            if let potentialMatchIndex = indexOfTheOneAndOnlyFaceUpCard {
+                if cards[index].content == cards[potentialMatchIndex].content {
+                    cards[index].isMatched = true
+                    cards[potentialMatchIndex].isMatched = true
+                }
+                indexOfTheOneAndOnlyFaceUpCard = nil
+                
+            } else {
+                for i in cards.indices {
+                    cards[i].isFaceUp = false
+                }
+                indexOfTheOneAndOnlyFaceUpCard = index
+            }
+            
             cards[index].isFaceUp.toggle()
         }
     }
@@ -28,7 +45,7 @@ struct MemoryGame<T> {
     struct Card: Identifiable {
         let id: Int
         var isFaceUp: Bool = false
-        let isMatched: Bool = false
+        var isMatched: Bool = false
         let content: T
     }
 }

@@ -41,7 +41,8 @@ struct CardView: View {
                 
                 Text(card.content)
                     .font(.largeTitle)
-                
+            } else if card.isMatched {
+                shape.opacity(0)
             } else {
                 shape.fill().foregroundColor(.red)
             }
