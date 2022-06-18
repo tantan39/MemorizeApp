@@ -53,5 +53,8 @@ struct CardView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(viewModel: .init())
+            .preferredColorScheme(.dark)
+        ContentView(viewModel: .init())
+            .preferredColorScheme(.light)
     }
 }
