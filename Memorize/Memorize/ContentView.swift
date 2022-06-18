@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    let cols = [GridItem(), GridItem(), GridItem()]
+    let cols = [GridItem(.adaptive(minimum: 80))]
     let emojis = ["🛫", "🚘", "🚒", "🚑", "🚕", "🚜", "🚌", "🚁", "🚲", "🏍", "🏎"]
     
     var body: some View {
-        LazyVGrid(columns: cols) {
-            ForEach(emojis, id: \.self) { emoji in
-                CardView(content: emoji)
+        VStack {
+            LazyVGrid(columns: cols) {
+                ForEach(emojis, id: \.self) { emoji in
+                    CardView(content: emoji)
+                        .aspectRatio(2/3, contentMode: .fit)
+                }
             }
+            
+            Spacer()
         }
+        .padding(.horizontal)
     }
 }
 
@@ -37,7 +43,6 @@ struct CardView: View {
             Text(content)
                 .font(.largeTitle)
         }
-        .frame(width: 80, height: 100)
         .onTapGesture {
             self.isFaceUp.toggle()
         }
