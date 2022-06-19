@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    let cols = [GridItem(.adaptive(minimum: 65))]
+    let cols = [GridItem(.adaptive(minimum: 85))]
     @StateObject var viewModel: EmojiMemoryGame
     
     var body: some View {
@@ -33,20 +33,22 @@ struct CardView: View {
     let card: MemoryGame<String>.Card
     
     var body: some View {
-        ZStack {
-            let shape = RoundedRectangle(cornerRadius: 20)
-            if card.isFaceUp {
-                shape.fill().foregroundColor(.white)
-                shape.strokeBorder(lineWidth: 3)
+        GeometryReader { geometry in
+            ZStack {
+                let shape = RoundedRectangle(cornerRadius: 20)
+                if card.isFaceUp {
+                    shape.fill().foregroundColor(.white)
+                    shape.strokeBorder(lineWidth: 3)
+                    
+                    Text(card.content)
+                        .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.7))
+                } else if card.isMatched {
+                    shape.opacity(0)
+                } else {
+                    shape.fill().foregroundColor(.red)
+                }
                 
-                Text(card.content)
-                    .font(.largeTitle)
-            } else if card.isMatched {
-                shape.opacity(0)
-            } else {
-                shape.fill().foregroundColor(.red)
             }
-
         }
     }
 }
@@ -55,7 +57,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(viewModel: .init())
             .preferredColorScheme(.dark)
-        ContentView(viewModel: .init())
-            .preferredColorScheme(.light)
+//        ContentView(viewModel: .init())
+//            .preferredColorScheme(.light)
     }
 }
