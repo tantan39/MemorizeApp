@@ -9,7 +9,16 @@ import Foundation
 
 struct MemoryGame<T> where T: Equatable {
     private(set) var cards: [Card]
-    private var indexOfTheOneAndOnlyFaceUpCard: Int?
+    private var indexOfTheOneAndOnlyFaceUpCard: Int? {
+        get {
+            let faceUpCardIndices = cards.indices.filter({ cards[$0].isFaceUp })
+            return faceUpCardIndices.count == 1 ? faceUpCardIndices.first : nil
+        }
+        
+        set {
+            cards.indices.forEach({ cards[$0].isFaceUp = ($0 == newValue) })
+        }
+    }
     
     init(numberOfPairsOfCards: Int, createCardContentBy: ((Int) -> T)) {
         cards = []
@@ -29,16 +38,11 @@ struct MemoryGame<T> where T: Equatable {
                     cards[index].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
                 }
-                indexOfTheOneAndOnlyFaceUpCard = nil
                 
+                cards[index].isFaceUp = true
             } else {
-                for i in cards.indices {
-                    cards[i].isFaceUp = false
-                }
                 indexOfTheOneAndOnlyFaceUpCard = index
             }
-            
-            cards[index].isFaceUp.toggle()
         }
     }
         
