@@ -12,15 +12,24 @@ struct ContentView: View {
     @StateObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        AspectVGrid(items: viewModel.cards, aspectRatio: 2/3, content: { card in
+        AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
+            cardView(for: card)
+        }
+            .foregroundColor(.red )
+            .padding(.horizontal)
+    }
+    
+    @ViewBuilder
+    private func cardView(for card: EmojiMemoryGame.Card) -> some View {
+        if card.isMatched && !card.isFaceUp {
+            Rectangle().opacity(0)
+        } else {
             CardView(card: card)
                 .padding(4)
                 .onTapGesture {
                     viewModel.choose(card)
                 }
-        })
-            .foregroundColor(.red )
-            .padding(.horizontal)
+        }
     }
 }
 
