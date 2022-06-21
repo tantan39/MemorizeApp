@@ -12,20 +12,15 @@ struct ContentView: View {
     @StateObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        VStack {
-            LazyVGrid(columns: cols) {
-                ForEach(viewModel.cards, id: \.id) { card in
-                    CardView(card: card)
-                        .aspectRatio(2/3, contentMode: .fit)
-                        .onTapGesture {
-                            viewModel.choose(card)
-                        }
+        AspectVGrid(items: viewModel.cards, aspectRatio: 2/3, content: { card in
+            CardView(card: card)
+                .padding(4)
+                .onTapGesture {
+                    viewModel.choose(card)
                 }
-            }
+        })
             .foregroundColor(.red )
-            Spacer()
-        }
-        .padding(.horizontal)
+            .padding(.horizontal)
     }
 }
 
@@ -57,7 +52,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView(viewModel: .init())
             .preferredColorScheme(.dark)
-//        ContentView(viewModel: .init())
-//            .preferredColorScheme(.light)
+        //        ContentView(viewModel: .init())
+        //            .preferredColorScheme(.light)
     }
 }
