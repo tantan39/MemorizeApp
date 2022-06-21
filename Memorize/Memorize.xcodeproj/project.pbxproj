@@ -15,6 +15,7 @@
 		B4E8E5AD285D685800A6B33F /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E8E5AC285D685800A6B33F /* EmojiMemoryGame.swift */; };
 		B4E8E5AF2861590B00A6B33F /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E8E5AE2861590B00A6B33F /* AspectVGrid.swift */; };
 		B4E8E5B12861615A00A6B33F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E8E5B02861615A00A6B33F /* CardView.swift */; };
+		B4E8E5B32861648B00A6B33F /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E8E5B22861648B00A6B33F /* Pie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		B4E8E5AC285D685800A6B33F /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
 		B4E8E5AE2861590B00A6B33F /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		B4E8E5B02861615A00A6B33F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		B4E8E5B22861648B00A6B33F /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				B4E8E59C285D59E600A6B33F /* MemorizeApp.swift */,
 				B4E8E59E285D59E600A6B33F /* ContentView.swift */,
 				B4E8E5B02861615A00A6B33F /* CardView.swift */,
+				B4E8E5B22861648B00A6B33F /* Pie.swift */,
 				B4E8E5AE2861590B00A6B33F /* AspectVGrid.swift */,
 				B4E8E5AA285D678300A6B33F /* MemoryGame.swift */,
 				B4E8E5AC285D685800A6B33F /* EmojiMemoryGame.swift */,
@@ -153,6 +156,7 @@
 				B4E8E59F285D59E600A6B33F /* ContentView.swift in Sources */,
 				B4E8E59D285D59E600A6B33F /* MemorizeApp.swift in Sources */,
 				B4E8E5AF2861590B00A6B33F /* AspectVGrid.swift in Sources */,
+				B4E8E5B32861648B00A6B33F /* Pie.swift in Sources */,
 				B4E8E5B12861615A00A6B33F /* CardView.swift in Sources */,
 				B4E8E5AD285D685800A6B33F /* EmojiMemoryGame.swift in Sources */,
 			);
