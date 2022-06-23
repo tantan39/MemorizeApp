@@ -12,11 +12,20 @@ struct ContentView: View {
     @StateObject var viewModel: EmojiMemoryGame
     
     var body: some View {
+        VStack {
+            gameView
+            Button("Shuffle") {
+                viewModel.shuffle()
+            }
+        }
+        .padding()
+    }
+    
+    var gameView: some View {
         AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
             cardView(for: card)
         }
-            .foregroundColor(.red )
-            .padding(.horizontal)
+        .foregroundColor(.red )
     }
     
     @ViewBuilder
