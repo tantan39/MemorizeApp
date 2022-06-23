@@ -15,7 +15,9 @@ struct ContentView: View {
         VStack {
             gameView
             Button("Shuffle") {
-                viewModel.shuffle()
+                withAnimation {
+                    viewModel.shuffle()
+                }
             }
         }
         .padding()
