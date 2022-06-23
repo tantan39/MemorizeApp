@@ -38,7 +38,9 @@ struct ContentView: View {
             CardView(card: card)
                 .padding(4)
                 .onTapGesture {
-                    viewModel.choose(card)
+                    withAnimation {
+                        viewModel.choose(card)
+                    }
                 }
         }
     }
