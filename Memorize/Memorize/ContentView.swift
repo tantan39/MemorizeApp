@@ -11,10 +11,12 @@ struct ContentView: View {
     let cols = [GridItem(.adaptive(minimum: 85))]
     @StateObject var viewModel: EmojiMemoryGame
     @State private var dealt = Set<Int>()
+    @Namespace private var dealCardNameSpace
     
     var body: some View {
         VStack {
             gameView
+            deckBody
             Button("Shuffle") {
                 withAnimation {
                     viewModel.shuffle()
@@ -28,14 +30,26 @@ struct ContentView: View {
         AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
             cardView(for: card)
         }
-        .onAppear(perform: {
-            withAnimation {
+        .foregroundColor(.red )
+    }
+    
+    var deckBody: some View {
+        ZStack {
+            ForEach(viewModel.cards.filter(unDealt)) { card in
+                CardView(card: card)
+                    .matchedGeometryEffect(id: card.id, in: dealCardNameSpace)
+                    .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .scale))
+            }
+        }
+        .foregroundColor(.red)
+        .frame(width: 90 * 2/3, height: 90)
+        .onTapGesture {
+            withAnimation(Animation.easeInOut(duration: 3)) {
                 for card in viewModel.cards {
                     dealt(card)
                 }
             }
-        })
-        .foregroundColor(.red )
+        }
     }
     
     @ViewBuilder
@@ -45,7 +59,8 @@ struct ContentView: View {
         } else {
             CardView(card: card)
                 .padding(4)
-                .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
+                .matchedGeometryEffect(id: card.id, in: dealCardNameSpace)
+                .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
                 .onTapGesture {
                     withAnimation {
                         viewModel.choose(card)
