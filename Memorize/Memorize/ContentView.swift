@@ -38,14 +38,15 @@ struct ContentView: View {
             ForEach(viewModel.cards.filter(unDealt)) { card in
                 CardView(card: card)
                     .matchedGeometryEffect(id: card.id, in: dealCardNameSpace)
-                    .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .scale))
+                    .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .identity))
+                    .zIndex(zIndex(for: card))
             }
         }
         .foregroundColor(.red)
-        .frame(width: 90 * 2/3, height: 90)
+        .frame(width: CardConstants.unDealWidth, height: CardConstants.unDealHeight)
         .onTapGesture {
-            withAnimation(Animation.easeInOut(duration: 3)) {
-                for card in viewModel.cards {
+            for card in viewModel.cards {
+                withAnimation(dealAnimation(for: card)) {
                     dealt(card)
                 }
             }
@@ -61,6 +62,7 @@ struct ContentView: View {
                 .padding(4)
                 .matchedGeometryEffect(id: card.id, in: dealCardNameSpace)
                 .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
+                .zIndex(zIndex(for: card))
                 .onTapGesture {
                     withAnimation {
                         viewModel.choose(card)
@@ -75,6 +77,23 @@ struct ContentView: View {
     
     private func unDealt(_ card: EmojiMemoryGame.Card) -> Bool {
         !dealt.contains(card.id)
+    }
+    
+    private func dealAnimation(for card: EmojiMemoryGame.Card) -> Animation {
+        var delay = 0.0
+        if let index = viewModel.cards.firstIndex(where: { $0.id == card.id }) {
+            delay = Double(index) * (2 / Double(viewModel.cards.count))
+        }
+        return Animation.easeInOut(duration: 1).delay(delay)
+    }
+    
+    private func zIndex(for card: EmojiMemoryGame.Card) -> Double {
+        -Double(viewModel.cards.firstIndex(where: { $0.id == card.id}) ?? 0)
+    }
+    
+    struct CardConstants {
+        static var unDealHeight = 90.0
+        static var unDealWidth = unDealHeight * 2/3
     }
 }
 
